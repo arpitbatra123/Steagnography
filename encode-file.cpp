@@ -13,13 +13,19 @@ unsigned bitsleft; // Data bits that is to be encoded.
 /*Returns number of lines of input file*/
 int countLines(ifstream &in)
 {
-
     int numLines = 0;
     std::string unused;
     while (std::getline(in, unused))
         ++numLines;
 
     return numLines;
+}
+
+int countStrength(ifstream &in)
+{
+    char character; int count = 0;
+    while (in >> character) ++count;
+    return count;
 }
 
 Quantum encodeBitPair(ifstream &in, char &byte, unsigned &bitsleft, Quantum q)
@@ -103,12 +109,21 @@ int main(int argc, char **argv)
 
     int nline = countLines(in2);
     in2.close();
-    ifstream in(secretPath.c_str(), ios::binary);
 
     ofstream fout;
     fout.open("lines.txt"); //stores number of lines so that we can extract exact data later.
     fout << nline << endl;
     fout.close();
+
+    ifstream in3(secretPath.c_str(), ios::binary);
+    int strength = countStrength(in3);
+    in3.close();
+    ifstream in(secretPath.c_str(), ios::binary);
+
+    ofstream fout2;
+    fout2.open("strength.txt"); //stores strength so that we can extract exact data later.
+    fout2 << strength << endl;
+    fout2.close();
 
     byte = 0;
     bitsleft = 0;

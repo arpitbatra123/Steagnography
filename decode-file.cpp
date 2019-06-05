@@ -83,10 +83,10 @@ int main(int argc, char **argv)
     out.close();
 
     ifstream fin;
-    fin.open("lines.txt");
+    fin.open("strength.txt");
 
-    int xline;
-    fin >> xline;
+    int xstrength;
+    fin >> xstrength;
     fin.close();
 
     ofstream fout;
@@ -94,12 +94,11 @@ int main(int argc, char **argv)
     ifstream xin;
     xin.open("tempfile");
     fout.open(secretPath.c_str());
-    string line;
-    while (xline--)
+    char c;
+    while (xstrength--)
     {
-        std::getline(xin, line);
-        fout << line;
-        fout << "\n";
+        xin.get(c);
+        fout << c;
     }
 
     fout.close();
